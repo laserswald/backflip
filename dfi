@@ -1,0 +1,73 @@
+#!/bin/bash
+# Installs this repository.
+# Make sure you have cloned this repo in your user directory.
+# If your user directory is 'user' then this repo should be "/home/user/dotfiles".
+
+dfdir="/home/$USER/etc"
+. $dfdir/install.cfg
+
+get_subs(){
+    git submodule init
+    git submodule update
+}
+
+vecho () {
+    test $verbose && echo $@
+}
+
+#install dot file
+idf(){
+    if [[ -f ~/.$1 ]]; then 
+        if [[ $force ]]; then
+            vecho "removing $1 from ~"
+            rm ~/.$1
+        elif [[ $move ]]; then
+            vecho "Moving dotfile from ~ and placing it in dotfile directory."
+            mv ~/.$1 $dfdir/$1
+        else 
+            vecho "skipping install of $1 " 
+            return
+        fi
+    else
+        vecho "installing $1 to ~/.$1"
+    fi
+    ln -s $dfdir/$1 ~/.$1
+}
+
+is_in(){
+    echo "checking for in $1"
+    for i in $1; do
+        if [ $i == $2 ]; then return 0; fi
+    done
+    return 1
+}
+
+install(){
+    cd $dfdir
+    for file in *; do
+        # If the file is in the "do not move" stuff then don't move it
+        if is_in ${excludes[@]} $file; then
+            vecho "excluding $file .";
+        else 
+            idf $file
+        fi
+    done
+    cd -
+}
+
+
+while getopts "fmv" flag; do 
+    case $flag in
+        v ) verbose=1; ;;
+        f ) force=1; ;;
+        m ) move=1 ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
+if [ -z $1 ]; then 
+    install
+    exit 0
+fi
+
+idf $1
