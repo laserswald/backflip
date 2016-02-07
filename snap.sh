@@ -10,38 +10,40 @@ usage() {
 
 # default values for gaps and master area
 TOP_PANEL=${PANEL:0}
-GAP=${GAP:-5}
+GAP=${GAP:5}
 
 # get current window id and its borderwidth
 PFW=$(pfw)
 BW=$(wattr b $PFW)
 
 # get root window's size
-ROOT=$(lsw -r)
-SW=$(wattr w $ROOT)
-SH=$(wattr h $ROOT)
-
+SS=$(~/bin/geo_disp.sh -a $(current_disp.sh -c $(wmp)))
+echo $SS
+SX=$(echo "$SS" | cut -d' ' -f 1)
+SY=$(echo "$SS" | cut -d' ' -f 2)
+SW=$(echo "$SS" | cut -d' ' -f 3)
+SH=$(echo "$SS" | cut -d' ' -f 4)
 # calculate usable screen size (without borders and gaps)
 SH=$((SH - TOP_PANEL))
 
 snap_up() 
 {
-    wtp $GAP $((GAP + TOP_PANEL)) $((SW - 2*GAP - 2*BW)) $((SH/2 - 2*BW - GAP - GAP/2)) $PFW
+    wtp $((SX + GAP)) $((SY + GAP + TOP_PANEL)) $((SW - 2*GAP - 2*BW)) $((SH/2 - 2*BW - GAP - GAP/2)) $PFW
 }
 
 snap_right() 
 {
-    wtp $((SW - SW/2 + GAP/2)) $((GAP + TOP_PANEL)) $((SW/2 - 2*BW - GAP - GAP/2)) $((SH - 2*BW - 2*GAP)) $PFW
+    wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + TOP_PANEL)) $((SW/2 - 2*BW - GAP - GAP/2)) $((SH - 2*BW - 2*GAP)) $PFW
 }
 
 snap_down() 
 {
-    wtp $GAP $((SH - SH/2 + GAP/2 + TOP_PANEL)) $((SW - 2*GAP - 2*BW)) $((SH/2 - 2*BW - GAP - GAP/2)) $PFW
+    wtp $((SX + GAP)) $((SY + SH - SH/2 + GAP/2 + TOP_PANEL)) $((SW - 2*GAP - 2*BW)) $((SH/2 - 2*BW - GAP - GAP/2)) $PFW
 }
 
 snap_left()
 {
-    wtp $GAP $((GAP + TOP_PANEL)) $((SW/2 - 2*BW - GAP - GAP/2)) $((SH - 2*BW - 2*GAP)) $PFW
+    wtp $((SX + GAP)) $((SY + GAP + TOP_PANEL)) $((SW/2 - 2*BW - GAP - GAP/2)) $((SH - 2*BW - 2*GAP)) $PFW
 }
 
 HSW=$((SW/2 - 2*BW - GAP - GAP/2))
@@ -49,22 +51,22 @@ HSH=$((SH/2 - 2*BW - GAP - GAP/2))
 
 snap_tr()
 {
-    wtp $((SW - SW/2 + GAP/2)) $((GAP + TOP_PANEL)) $HSW $HSH $PFW
+    wtp $((SX + SW - SW/2 + GAP/2)) $((SY + GAP + TOP_PANEL)) $HSW $HSH $PFW
 }
 
 snap_br()
 {
-    wtp $((SW - SW/2 + GAP/2)) $((SH - SH/2 + GAP/2 + TOP_PANEL)) $HSW $HSH $PFW
+    wtp $((SX + SW - SW/2 + GAP/2)) $((SY + SH - SH/2 + GAP/2 + TOP_PANEL)) $HSW $HSH $PFW
 }
 
 snap_tl()
 {
-    wtp $GAP $((GAP + TOP_PANEL)) $HSW $HSH $PFW
+    wtp $((SX + GAP)) $((SY + GAP + TOP_PANEL)) $HSW $HSH $PFW
 }
 
 snap_bl()
 {
-    wtp $GAP $((SH - SH/2 + GAP/2 + TOP_PANEL)) $HSW $HSH $PFW
+    wtp $((SX + GAP)) $((SY + SH - SH/2 + GAP/2 + TOP_PANEL)) $HSW $HSH $PFW
 }
 
 case $1 in
