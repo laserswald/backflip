@@ -33,8 +33,6 @@ shift $(( $OPTIND - 1 ))
 
 test -z "$1" && usage
 
-
-
 if [ $COORDS ]; then
     check_mon $1 $2
 else

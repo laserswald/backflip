@@ -41,7 +41,7 @@ esac
 test -z "$wid" && echo "$(basename $0): can't find a window to focus" >&2 && exit 1
 
 setborder inactive $CUR # set inactive border on current window
-setborder active $wid   # activate the new window
+#setborder active $wid   # activate the new window
 chwso -r $wid           # put it on top of the stack
 wtf $wid                # set focus on it
 
