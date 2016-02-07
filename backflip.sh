@@ -1,8 +1,10 @@
 #!/bin/sh
-#
-# z3bra - 2014 (c) wtfpl
-# focus a window when it is created
-# depends on: wew focus.sh
+# backflip.sh 
+# Start my personal wmutils settings.
+
+shoutout.sh &
+sxhkd -c ~/bin/backflip.sxhkd &
+infoborder.sh &
 
 wew | while IFS=: read ev wid; do
     case $ev in
