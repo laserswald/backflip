@@ -5,10 +5,10 @@ ROOT=$(lsw -r)
 $ACTIVE_COLOR=
 
 # check if window exists
-wattr $2 || return
+wattr $2 || exit 1
 
 # do not modify border of fullscreen windows
-test "$(wattr xywh $2)" = "$(wattr xywh $ROOT)" && exit
+test "$(wattr xywh $2)" = "$(wattr xywh $ROOT)" && exit 
 
 case $1 in
     active)   chwb -s $BW -c $ACTIVE_COLOR $2 ;;

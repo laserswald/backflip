@@ -9,15 +9,15 @@ usage() {
 }
 
 # default values for gaps and master area
-TOP_PANEL=${PANEL:0}
-GAP=${GAP:5}
+TOP_PANEL=${PANEL:-0}
+GAP=${GAP:-5}
 
 # get current window id and its borderwidth
 PFW=$(pfw)
 BW=$(wattr b $PFW)
 
 # get root window's size
-SS=$(~/bin/geo_disp.sh -a $(current_disp.sh -c $(wmp)))
+SS=$(~/bin/geo_disp.sh $(current_disp.sh -c $(wmp)))
 echo $SS
 SX=$(echo "$SS" | cut -d' ' -f 1)
 SY=$(echo "$SS" | cut -d' ' -f 2)

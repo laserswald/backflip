@@ -2,6 +2,8 @@
 #
 # Copyright (c) 2015 Greduan <me@greduan.com>, licensed under the WTFPL
 # Adds group-like capabilities, sorta like those you find in CWM and such WMs
+# 
+# Colored additions by Laserswald.
 
 usage() {
     cat << EOF
@@ -33,6 +35,8 @@ FSDIR=${FSDIR:-/tmp/groups.sh}
 clean_wid() {
     # TODO: make POSIX compatible, -i is a GNU-ism
     sed -i "/$1/d" $FSDIR/group.*
+    # Laserswald's edit: No more color. :C
+    chwb -s 1 -c $(tcolor "white") $1
 }
 
 # cleans group ($1) from (in)active files
@@ -40,6 +44,12 @@ clean_status() {
     # TODO: make POSIX compatible, -i is a GNU-ism
     sed -i "/$1/d" $FSDIR/active
     sed -i "/$1/d" $FSDIR/inactive
+}
+
+# Get a color for the group ($1)
+groupcolor() {
+    gc="color$1"
+    echo $(tcolor $gc | sed s/#/0x/g)
 }
 
 # shows all the windows in group ($1)
@@ -94,6 +104,9 @@ set_group() {
     grep -q $2 < $FSDIR/all || \
     echo $2 >> $FSDIR/all && \
     echo $2 >> $FSDIR/active
+
+    # Laserswald's edit: add a group color.
+    chwb -s 1 -c $(groupcolor $2) $1
 
     # map WID if group is active
     grep -q $2 < $FSDIR/active && \
