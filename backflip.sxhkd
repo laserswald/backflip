@@ -36,11 +36,8 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
     snap.sh {left, down, up, right}
 
-super + t 
-    tile.sh
-
-super + slash
-    switch_grid.sh
+super + shift + {y,u,n,m}
+    snap.sh {tl, tr, bl, br}
 
 super + Escape
     pkill -USR1 sxhkd 
