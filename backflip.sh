@@ -3,7 +3,7 @@
 # Start my personal wmutils settings.
 
 shoutout.sh &
-sxhkd -c ~/bin/backflip.sxhkd -f 90 -r ~/sxhkd.log &
+sxhkd -c ~/bin/backflip.sxhkd -f 90 -r ~/var/log/sxhkd.log &
 
 last_window=
 wew | while IFS=: read ev wid; do
