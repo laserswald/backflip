@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# wmutils/contrib>: snap.sh, 9/12/15 kekler 
+# wmutils/contrib>: snap, 9/12/15 kekler 
 # snaps focued window to the left, right, top, or bottom edge
 
 usage() {
@@ -17,7 +17,7 @@ PFW=$(pfw)
 BW=$(wattr b $PFW)
 
 # get root window's size
-SS=$(~/bin/geo_disp.sh $(current_disp.sh -c $(wmp)))
+SS=$(~/bin/geo_disp $(current_disp -c $(wmp)))
 SX=$(echo "$SS" | cut -d' ' -f 1)
 SY=$(echo "$SS" | cut -d' ' -f 2)
 SW=$(echo "$SS" | cut -d' ' -f 3)

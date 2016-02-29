@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Shoutout.sh: Manage recurring popup notifications
+# Shoutout: Manage recurring popup notifications
 
 function check_wifi() {
         
