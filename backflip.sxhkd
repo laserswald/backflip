@@ -4,10 +4,10 @@ super + shift + c
     killw $(pfw)
 
 super + shift + q
-    logout.sh
+    logout
 
 super + space
-    fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
+    fullscreen_disp $(current_disp $(pfw)) $(pfw)
 
 super + {Left, Down, Up, Right}
     wmv {-50 0, 0 50, 0 -50, 50 0} $(pfw)
@@ -25,22 +25,22 @@ super + !button{1,3}
     {wtp, wrs -a} $(wmp) {$(wattr whi $(pfw)),$(pfw) }
 
 super + button2
-    fullscreen_disp.sh $(current_disp.sh -c $(wmp)) $(pfw)
+    fullscreen_disp $(current_disp -c $(wmp)) $(pfw)
 
 super + button{4,5}
-    focus.sh {next, prev}
+    focus {next, prev}
 
 super + {h,j,k,l}
-    closest.sh {left, down, up, right}
+    closest {left, down, up, right}
 
 super + shift + {h,j,k,l}
-    snap.sh {left, down, up, right}
+    snap {left, down, up, right}
 
 super + t 
-    tile.sh
+    tile
 
 super + slash
-    switch_grid.sh
+    switch_grid
 
 super + Escape
     pkill -USR1 sxhkd 
@@ -48,10 +48,10 @@ super + Escape
 # group management
 
 super + {1, 2, 3, 4, 5}
-    groups.sh -t {1, 2, 3, 4, 5}
+    groups -t {1, 2, 3, 4, 5}
 
 super + shift + {1, 2, 3, 4, 5}
-    groups.sh -s $(pfw) {1, 2, 3, 4, 5}
+    groups -s $(pfw) {1, 2, 3, 4, 5}
 
 # Launch programs
 super + question
