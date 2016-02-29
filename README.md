@@ -20,10 +20,30 @@ List all the available displays.
 * focus
 * groups
 
+<<<<<<< HEAD
 ## Scripts that needed to be modified for multihead awareness.
+
 ### switch_grid
 Grids out only on the current display. (perhaps needs to grid out on all displays too with a flag? hmmmm tasty)
+
 ### tile
 Tiles all the windows on the current display instead of every window. Wowza.
+
+### fullscreen
+Now, it fullscreens to the current monitor. 
+
+### snap
+It snaps to the monitor where the pointer is. 
+
+
+**bugs**
+
+- fullscreen_disp sometimes unfullscreens things when I moved them already. Probably shouldn't do that. 
+
+- There are some old bindings in backflip.sxhkd that don't work any more. Namely, the 'help' binding to show the current list of bindings. 
+
+- Since fullscreen_disp works on single head screens too, it probably should be renamed to fullscreen with the old one being removed.
+
+>>>>>>> e77de32688709e4a8ec8c4e8ac8e96164fc75894
 
 

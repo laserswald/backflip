@@ -42,6 +42,9 @@ super + t
 super + slash
     switch_grid
 
+super + shift + {y,u,n,m}
+    snap {tl, tr, bl, br}
+
 super + Escape
     pkill -USR1 sxhkd 
 
@@ -53,14 +56,18 @@ super + {1, 2, 3, 4, 5}
 super + shift + {1, 2, 3, 4, 5}
     groups -s $(pfw) {1, 2, 3, 4, 5}
 
+super + alt + {1, 2, 3, 4, 5}
+    groups -M $(pfw) {1, 2, 3, 4, 5}
+
+super + minus
+    groups -c $(pfw)
+
 # Launch programs
-super + question
-    urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s'; popup "triggered"
 
 super + Return
     urxvt
 
-super + n
+super + Insert
     urxvt -name ncmpcpp -e ncmpcpp
 
 super + m
@@ -73,13 +80,22 @@ XF86Calculator
     urxvt -name bc -e bc
   
 super + b  
-    uzbl-tabbed
+    uzbl-browser
+
+super + shift + b  
+    firefox
 
 super + f
     urxvt -name ranger -e ranger
 
 super + shift + colon
-    dmenu_run -p "run >"
+    dmenu_run -b -p "run:"
 
 super + ctrl + k
     urxvt -e vim .sxhkdrc
+
+super + q
+    dmenu -b -p "note:" <&- | xargs gtd q
+
+super + shift + f 
+    fasd -fl | dmenu -b -p "edit:" | xargs urxvt -e $EDITOR

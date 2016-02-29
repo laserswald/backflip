@@ -18,7 +18,6 @@ BW=$(wattr b $PFW)
 
 # get root window's size
 SS=$(~/bin/geo_disp $(current_disp -c $(wmp)))
-echo $SS
 SX=$(echo "$SS" | cut -d' ' -f 1)
 SY=$(echo "$SS" | cut -d' ' -f 2)
 SW=$(echo "$SS" | cut -d' ' -f 3)
