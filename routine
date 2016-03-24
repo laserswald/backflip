@@ -1,0 +1,11 @@
+#!/bin/sh
+# Routine: what does something do when it gets opened?
+
+# Default operation: center it on the mouse pointer. 
+function default() {
+    wid=$1
+
+    wtp 
+}
+
+

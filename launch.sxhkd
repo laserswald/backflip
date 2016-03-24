@@ -1,0 +1,39 @@
+# Launch programs
+
+# Reload Sxhkd's keybindings.
+super + Escape
+    pkill -USR1 sxhkd 
+
+# Launch a terminal
+super + Return
+    urxvt
+
+# Open some predefined programs
+super + o ; {XF86AudioPlay, m, c, NumLock}
+    urxvt -e {ncmpcpp, mutt, weechat, bc}
+
+# Handle the calculator button on some keyboards
+XF86Calculator
+    urxvt -name bc -e bc
+
+# Launch a web browser.
+super {+ shift} + b  
+    {firefox, uzbl-browser}
+
+# Launch a file manager.
+super + f
+    urxvt -name ranger -e ranger
+
+# Run an arbitrary program.
+super + shift + colon
+    dmenu_run -b -p "run:"
+
+# Quick note
+super + q
+    dmenu -b -p "note:" <&- | xargs gtd q
+
+# Edit an arbitrary file
+super + shift + f 
+    fasd -fl | dmenu -b -p "edit:" | xargs urxvt -e $EDITOR
+
+

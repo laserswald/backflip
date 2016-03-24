@@ -1,4 +1,4 @@
-#Basic window management 
+# Backflip
 
 super + shift + c 
     killw $(pfw)
@@ -45,9 +45,6 @@ super + slash
 super + shift + {y,u,n,m}
     snap {tl, tr, bl, br}
 
-super + Escape
-    pkill -USR1 sxhkd 
-
 # group management
 
 super + {1, 2, 3, 4, 5}
@@ -62,40 +59,3 @@ super + alt + {1, 2, 3, 4, 5}
 super + minus
     groups -c $(pfw)
 
-# Launch programs
-
-super + Return
-    urxvt
-
-super + Insert
-    urxvt -name ncmpcpp -e ncmpcpp
-
-super + m
-    urxvt -name mutt -e mutt
-
-super + c
-    urxvt -name weechat -e weechat
-
-XF86Calculator
-    urxvt -name bc -e bc
-  
-super + b  
-    uzbl-browser
-
-super + shift + b  
-    firefox
-
-super + f
-    urxvt -name ranger -e ranger
-
-super + shift + colon
-    dmenu_run -b -p "run:"
-
-super + ctrl + k
-    urxvt -e vim .sxhkdrc
-
-super + q
-    dmenu -b -p "note:" <&- | xargs gtd q
-
-super + shift + f 
-    fasd -fl | dmenu -b -p "edit:" | xargs urxvt -e $EDITOR

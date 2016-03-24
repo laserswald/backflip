@@ -6,6 +6,9 @@ function check_wifi() {
         
 }
 
+function check_battery(){
+}
+
 while true; do
     check_wifi
     check_battery
