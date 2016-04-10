@@ -1,0 +1,73 @@
+#!/bin/sh
+#
+# winclass - checks window class
+# (c) ix && wildefyr 2016
+#
+
+usage() {
+  echo "usage: $(basename $0) <command> <wid|unlisted>"
+  exit 1
+}
+
+case $2 in
+  -u) lsw_args="-u" ;;
+  -o) lsw_args="-o" ;;
+  -a) lsw_args="-a" ;;
+esac
+
+case $1 in
+  -c)
+    case $2 in
+      0x*) xprop -id $2 WM_CLASS | cut -d\" -f 2 ;;
+      *) usage ;;
+    esac
+    ;;
+  -m)
+    case $2 in
+      0x*) xprop -id $2 WM_CLASS | cut -d\" -f 4 ;;
+      *) usage ;;
+    esac
+    ;;
+  -p)
+    case $2 in
+	  0x*) xprop -id $2 _NET_WM_PID | cut -d\  -f 3 ;;
+	  *) usage ;;
+	esac
+	;;
+  -ca)
+    for i in $(seq $(lsw $lsw_args | wc -l)); do
+      wid=$(lsw $lsw_args | sed "$i!d")
+      echo "$wid $($(basename $0) -c $wid)"
+    done
+    ;;
+  -ma)
+    for i in $(seq $(lsw $lsw_args | wc -l)); do
+      wid=$(lsw $lsw_args | sed "$i!d")
+      echo "$wid $($(basename $0) -m $wid)"
+    done
+    ;;
+  -pa)
+    for i in $(seq $(lsw $lsw_args | wc -l)); do
+	  wid=$(lsw $lsw_args | sed "$i!d")
+	  printf '%s\n' "$wid $($(basename $0) -p $wid)"
+	done
+    ;;
+  --name)
+    for i in $(seq $(lsw $lsw_args | wc -l)); do
+      wid=$(lsw $lsw_args | sed "$i!d")
+      echo "$wid $($(basename $0) -m $wid)"
+    done
+    ;;
+	--wname)
+		for i in $(seq $(lsw $lsw_args | wc -l)); do
+			wid=$(lsw $lsw_args | sed "$i!d")
+			echo "$wid $(wname $wid)"
+		done
+		;;
+  -a)
+    $(basename $0) -ca $lsw_args
+    $(basename $0) -ma $lsw_args
+    $(basename $0) --name $lsw_args
+    ;;
+  *) usage ;;
+esac
