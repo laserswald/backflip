@@ -20,7 +20,13 @@ List all the available displays.
 * focus
 * groups
 
-## Scripts that had to be modified for multihead awareness.
+## Scripts that needed to be modified for multihead awareness.
+
+### switch_grid
+Grids out only on the current display. (perhaps needs to grid out on all displays too with a flag? hmmmm tasty)
+
+### tile
+Tiles all the windows on the current display instead of every window. Wowza.
 
 ### fullscreen
 Now, it fullscreens to the current monitor. 

@@ -39,6 +39,12 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
     snap {left, down, up, right}
 
+super + t 
+    tile
+
+super + slash
+    switch_grid
+
 super + shift + {y,u,n,m}
     snap {tl, tr, bl, br}
 
