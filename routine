@@ -2,10 +2,16 @@
 # Routine: what does something do when it gets opened?
 
 # Default operation: center it on the mouse pointer. 
-function default() {
-    wid=$1
+class=$(wclass -c $1)
 
-    wtp 
+function default() {
+    wmv -a $(wmp) "$1"
 }
 
-
+case $class in
+    weechat) groups -s $1 2; default $1 ;;
+    ncmpcpp) groups -s $1 5; default $1 ;;
+    mutt) groups -s $1 5; default $1 ;;
+    Telegram) groups -s $1 2; default $1 ;;
+    * ) default $1 ;;
+esac

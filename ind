@@ -16,8 +16,8 @@ ismon () {
 
 # Check each 
 check_mon () {
-    for mon in $(ls_disp); do 
-        if ismon $1 $2 $(geo_disp -a $mon); then 
+    for mon in $(lsd); do 
+        if ismon $1 $2 $(dattr -a $mon); then 
             echo $mon; 
         fi 
     done 

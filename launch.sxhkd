@@ -17,7 +17,7 @@ XF86Calculator
     urxvt -name bc -e bc
 
 # Launch a web browser.
-super {+ shift} + b  
+super {_ , + shift} + b  
     {firefox, uzbl-browser}
 
 # Launch a file manager.

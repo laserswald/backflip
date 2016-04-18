@@ -8,25 +8,37 @@ usage () {
     exit 0
 }
 
-
-
 # Set the window given to full screen. 
 # usage: set_full <monitor> <window> 
 set_full () {
     local monitor=$1
     local window=$2
     wattr xywhi $window >$tempfile
-    wtp $(geo_disp $monitor) $window
+    wtp $(dattr $monitor) $window
     wtf $window
     chwb -s 0 $window
     chwso -r $window
 }
 
-# set the window given to full screen. 
+# unsset the window given to full screen. 
 # usage: set_full <monitor> <window> 
 unset_full () {
     wtp $(cat ${tempfile})
     rm -f ${tempfile}
+}
+
+#Did the window get resized another way?
+check_moved() {
+    #args 
+    local window=$1
+
+    local recorded=$(cat $tempfile)
+    local current=$(wattr xywh $window)
+    if [[ $current = $recorded ]]; then 
+        return 0
+    else 
+        return 1
+    fi
 }
 
 display=$1
@@ -37,13 +49,18 @@ tempfile="/tmp/fs_data_$display"
 test -z "$1" && test -z "$2" && usage
 
 # check if display is valid
-ls_disp | grep -q $display || usage
+lsd | grep -q $display || usage
 
 # check if windowid is valid
 lsw | grep -q $windowid || usage
 
 if [[ -f $tempfile ]]; then
-    unset_full
+    if [[ check_moved ]]; then 
+        rm -f $tempfile
+        set_full $display $windowid
+    else
+        unset_full
+    fi
 else 
     set_full $display $windowid
 fi

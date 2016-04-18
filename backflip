@@ -4,21 +4,21 @@
 
 shoutout &
 sxhkd -c ~/bin/backflip.sxhkd -f 90 -r ~/var/log/sxhkd.log ~/bin/launch.sxhkd &
+platform &
 
-last_window=
 wew | while IFS=: read ev wid; do
-    case $ev in
+case $ev in
     # Window focusing
     7) 
-        focus $wid
-        ;;
+    focus $wid
+    ;;
+
     # occurs on mapped windows
     16) 
-        if test ! wattr o $wid; then 
-            focus $wid
-            win_telemouse
-            chwb -s 1 $wid
-        fi
-        ;;
+   
+    routine $wid
+    chwb -s 1 $wid
+
+    ;;
     esac
 done
