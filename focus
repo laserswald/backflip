@@ -20,7 +20,6 @@ test -z "$wid" && echo "$(basename $0): can't find a window to focus" >&2 && exi
 
 chwb -s 1 $CUR
 chwb -s 2 $wid
-chwso -r $wid           # put it on top of the stack
 wtf $wid                # set focus on it
 
 # you might want to remove this for sloppy focus

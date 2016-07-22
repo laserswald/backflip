@@ -22,7 +22,7 @@ super + shift + alt + {Left, Down, Up, Right}
     wrs {-20 0, 0 20, 0 -20, 20 0} $(pfw)
 
 super + @button1
-    xmmv
+    chwso -r $(pfw); xmmv 
 
 super + @button3
     wrs -a $(wmp) $(pfw)
@@ -61,7 +61,7 @@ super + kp_enter
     urxvt -name bc -e bc
   
 super + b  
-    uzbl-browser
+    qutebrowser
 
 super + shift + b  
     firefox
@@ -90,14 +90,19 @@ super + Escape
 # group management
 
 super + {1, 2, 3, 4, 5}
-    groups -t {1, 2, 3, 4, 5}
+    groupmgr -t {1, 2, 3, 4, 5}
 
 super + shift + {1, 2, 3, 4, 5}
-    groups -s $(pfw) {1, 2, 3, 4, 5}
+    groupmgr -s $(pfw) {1, 2, 3, 4, 5}
 
 super + alt + {1, 2, 3, 4, 5}
-    groups -M $(pfw) {1, 2, 3, 4, 5}
+    groupmgr -M $(pfw) {1, 2, 3, 4, 5}
 
 super + minus
-    groups -c $(pfw)
+    groupmgr -c $(pfw)
 
+~button3
+    rcm
+
+~button1
+    chwso -r $(pfw)

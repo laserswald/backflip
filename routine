@@ -5,11 +5,14 @@ class=$(wclass -c $1)
 function default() {
     wmv -a $(wmp) "$1"
 }
-
-case $class in
-    weechat) groups -s $1 2; default $1 ;;
-    ncmpcpp) groups -s $1 5; default $1 ;;
-    mutt) groups -s $1 5; default $1 ;;
-    Telegram) groups -s $1 2; default $1 ;;
-    * ) default $1 ;;
-esac
+if ! wattr o $1 ; then
+    case $class in
+        weechat) groups -s $1 2; default $1 ;;
+        ncmpcpp) groups -s $1 5; default $1 ;;
+        mutt) groups -s $1 5; default $1 ;;
+        Telegram) groups -s $1 2; default $1 ;;
+        dmenu) ;;
+        9menu) ;;
+        * ) default $1 ;;
+    esac
+fi
