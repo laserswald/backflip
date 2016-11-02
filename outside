@@ -1,0 +1,15 @@
+#!/bin/sh
+# Copyright © 2015 Laserswald. Liscensed under the WTFPL.
+#
+# Check if the mouse is within a window.
+
+# Check each 
+for win in $(lsw); do 
+    read x y w h <<< $(wattr xywh $win)
+    if rcoll -w "$(wmp) 0 0" "$x $y $w $h" ; then 
+        echo $win
+        exit 1
+    fi 
+done 
+echo 0
+exit 0

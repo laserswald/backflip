@@ -2,9 +2,10 @@
 # backflip 
 # Start my personal wmutils settings.
 
-shoutout &
-platform &
-sxhkd -c ~/bin/backflip.sxhkd -f 90 &
+source ~/.config/backflip/backfliprc
+exec ~/.config/backflip/autostart &
+
+sxhkd -f 90 -c ~/.config/backflip/keybinds.sxhkd &
 
 wew | while IFS=: read ev wid; do
 case $ev in
@@ -15,7 +16,7 @@ case $ev in
 
     # occurs on mapped windows
     16) 
-   
+
     routine $wid
     chwb -s 1 $wid
 

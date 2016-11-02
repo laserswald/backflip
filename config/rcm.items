@@ -1,0 +1,14 @@
+term:urxvt
+www:qutebrowser
+irc:urxvt -e irssi
+files:urxvt -e ranger
+mail:urxvt -e mutt
+music:urxvt -e ncmpcpp
+news:urxvt -e newsbeuter
+pod:urxvt -e podbeuter
+voip:mumble
+mc:multimc5
+-
+run:dmenu_run
+kill:xkill -button 3
+exit

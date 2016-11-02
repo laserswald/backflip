@@ -3,8 +3,11 @@
 class=$(wclass -c $1)
 
 function default() {
+    #move to he 
     wmv -a $(wmp) "$1"
+    chwb -s 1 -c $(tcolor "color8" | sed 's/#/0x/') $1
 }
+
 if ! wattr o $1 ; then
     case $class in
         weechat) groups -s $1 2; default $1 ;;

@@ -17,7 +17,7 @@ ismon () {
 # Check each 
 check_mon () {
     for mon in $(lsd); do 
-        if inr $1 $2 $(dattr -a $mon); then 
+        if rcoll -w "$1 $2 $3 $4" "$(dattr -a $mon)"; then 
             echo $mon; 
         fi 
     done 
@@ -34,7 +34,7 @@ shift $(( $OPTIND - 1 ))
 test -z "$1" && usage
 
 if [ $COORDS ]; then
-    check_mon $1 $2
+    check_mon $1 $2 0 0
 else
-    check_mon $(wattr xy $1) 
+    check_mon $(wattr xywh $1) 
 fi
