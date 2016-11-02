@@ -3,10 +3,18 @@
 # Shoutout: Manage recurring popup notifications
 
 function check_wifi() {
-        
+    :         
+}
+
+function check_battery(){
+    percent=$(acpi | cut -d, -f2 | tr -d ' %')
+    if [[ $percent < 20 ]]; then
+        test $(acpi | grep -q 'Discharging') notify-send 'Battery' "Battery is low. Plug me in!" 
+    fi
 }
 
 while true; do
     check_wifi
     check_battery
+    sleep 5m
 done

@@ -1,5 +1,7 @@
 #!/bin/sh
+# Routine: what does something do when it gets opened?
 
+# Default operation: center it on the mouse pointer. 
 class=$(wclass -c $1)
 
 function default() {

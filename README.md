@@ -1,6 +1,8 @@
 # backflip
 Make it do a backflip. But seriously, wmutils's contrib scripts with multihead.
 
+
+
 ## The core scripts (aka *_disp)
 
 These allow using wmutils's stuff with multihead displays. Check it out:
@@ -44,4 +46,11 @@ It snaps to the monitor where the pointer is.
 - Since fsd works on single head screens too, it probably should be renamed to fullscreen with the old one being removed.
 
 
+## Architecture
+
+Backflip is, at it's core, a model-view-controller for a desktop metaphor. Wmutils manages the model of the windows themselves, while mmutils takes care of the multiple screens available. 
+
+- Window manipulation
+- Desktop querying
+- Grouping
 
