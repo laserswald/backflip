@@ -10,21 +10,17 @@ usage () {
     exit 1
 }
 
-ismon () {
-    test "$1" -ge "$3" && test "$2" -ge "$4" && test "$1" -le "$5" && test "$2" -le "$6"
-}
-
-# Check each 
+# Check each
 check_mon () {
-    for mon in $(lsd); do 
-        if rcoll -w "$1 $2 $3 $4" "$(dattr -a $mon)"; then 
-            echo $mon; 
-        fi 
-    done 
+    for mon in $(lsd); do
+        if rcoll -c "$1 $2 $3 $4" "$(dattr -a $mon)"; then
+            echo $mon;
+        fi
+    done
 }
 
 while getopts c flag; do
-    case $flag in 
+    case $flag in
         c) COORDS=1 ;;
     esac
 done
@@ -36,5 +32,5 @@ test -z "$1" && usage
 if [ $COORDS ]; then
     check_mon $1 $2 0 0
 else
-    check_mon $(wattr xywh $1) 
+    check_mon $(wattr xywh $1)
 fi

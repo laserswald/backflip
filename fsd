@@ -8,36 +8,42 @@ usage () {
     exit 0
 }
 
-# Set the window given to full screen. 
-# usage: set_full <monitor> <window> 
+# Set the window given to full screen.
+# usage: set_full <monitor> <window>
 set_full () {
     local monitor=$1
     local window=$2
     wattr xywhi $window >$tempfile
+    chwb -s 0 $window
     wtp $(dattr $monitor) $window
     wtf $window
-    chwb -s 0 $window
     chwso -r $window
 }
 
-# unsset the window given to full screen. 
-# usage: set_full <monitor> <window> 
+# unsset the window given to full screen.
+# usage: set_full <monitor> <window>
 unset_full () {
     wtp $(cat ${tempfile})
     rm -f ${tempfile}
 }
 
+same_window() {
+    local stored_wid=$(cat $tempfile | cut -f5 -d' ')
+    [[ "$1" = "$stored_wid" ]] && return 0
+    return 1
+}
+
 #Did the window get resized another way?
 check_moved() {
-    #args 
     local window=$1
 
-    local recorded=$(cat $tempfile)
+    local recorded=$(cat $tempfile | cut -f '1-4' -d' ')
     local current=$(wattr xywh $window)
-    if [[ $current = $recorded ]]; then 
-        return 0
-    else 
+
+    if [ "$current" = "$recorded" ]; then
         return 1
+    else
+        return 0
     fi
 }
 
@@ -54,14 +60,19 @@ lsd | grep -q $display || usage
 # check if windowid is valid
 lsw | grep -q $windowid || usage
 
-if [[ -f $tempfile ]]; then
-    if [[ check_moved ]]; then 
-        rm -f $tempfile
-        set_full $display $windowid
+if [ -f $tempfile ]; then
+    if same_window $windowid; then
+        if check_moved $windowid; then
+            rm -f $tempfile
+            set_full $display $windowid
+        else
+            unset_full
+        fi
     else
         unset_full
+        set_full $display $windowid
     fi
-else 
+else
     set_full $display $windowid
 fi
 

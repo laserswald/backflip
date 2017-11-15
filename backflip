@@ -1,25 +1,86 @@
 #!/bin/sh
-# backflip 
-# Start my personal wmutils settings.
+# backflip
+# React to different X events from wew
 
+echol () {
+    echo "$@" >> ~/.config/backflip/log
+}
+
+echo "Starting Backflip." > ~/.config/backflip/log
+
+
+echol "Sourcing backfliprc."
 source ~/.config/backflip/backfliprc
+
+
+echol "Autostart."
 exec ~/.config/backflip/autostart &
 
-sxhkd -f 90 -c ~/.config/backflip/keybinds.sxhkd &
+echo "Starting keybinding server."
+sxhkd -c ~/.config/backflip/keybinds.sxhkd &
 
-wew | while IFS=: read ev wid; do
-case $ev in
-    # Window focusing
-    7) 
-    focus $wid
-    ;;
+enter_notify(){
+    wid=$1
+    wtf "$wid"
+    chwb -s 2 "$wid"
+}
 
-    # occurs on mapped windows
-    16) 
-
-    routine $wid
+leave_notify(){
+    wid=$1
     chwb -s 1 $wid
+}
 
-    ;;
-    esac
+create_notify(){
+    wid=$1
+    echol "Created window: $wid"
+    chwb -s 1 -c FFFFFF "$wid"
+    routine "$wid"
+}
+
+destroy_notify(){
+    wid=$1
+    echol "Destroyed window: $wid"
+}
+
+map_notify(){
+    wid=$1
+    echol "Mapped window: $wid"
+    chwso -r "$wid"
+}
+
+unmap_notify(){
+    echol "Unmapped window: $wid"
+    wid=$1
+}
+
+WORKER_PID=0
+
+event_handler() {
+    EVENT_MASK=$((16 + 32))
+
+    wew -m $EVENT_MASK | while IFS=: read -r ev wid; do
+        case $ev in
+            7) enter_notify "$wid" ;;
+            8) leave_notify "$wid" ;;
+            16) create_notify "$wid" ;;
+            17) destroy_notify "$wid" ;;
+            19) map_notify "$wid";;
+        esac
+    done
+}
+
+restart_handler() {
+    if kill -0 "$WORKER_PID"; then
+        kill "$WORKER_PID"
+    fi
+    event_handler &
+    WORKER_PID=$!
+}
+
+trap restart_handler SIGUSR1
+restart_handler
+while sleep 1; do
+    kill -0 "$WORKER_PID" || break
 done
+
+

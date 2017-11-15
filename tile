@@ -1,8 +1,17 @@
 #!/bin/sh
 #
 # z3bra - 2014 (c) wtfpl
-# edited by lazr 2016 
+# edited by lazr 2016
 # arrange windows in a tiled pattern
+
+# Filter the windows if they are in the given display
+windows_in_disp () {
+    while read -r window; do
+        if [[ $(ind $window) == $DISP ]]; then
+            echo $window
+        fi
+    done
+}
 
 # default values for gaps and master area
 PANEL=${PANEL:-0}
@@ -13,7 +22,6 @@ MASTER=${MASTER:-900}
 PFW=$(pfw)
 BW=$(wattr b $PFW)
 
-# get root window's size (beware, multi-head setups...)
 DISP=$(ind $(pfw))
 SW=$(dattr -w $DISP)
 SH=$(dattr -h $DISP)
@@ -22,14 +30,7 @@ SY=$(dattr -y $DISP)
 
 # get the number of windows to put in the stacking area
 
-# Filter the windows if they are in the given display
-windows_in_disp () {
-    while read -r window; do
-        if [[ $(ind $window) == $DISP ]]; then
-            echo $window
-        fi
-    done
-}
+
 MAX=$(lsw | windows_in_disp | wc -l)
 MAX=$((MAX - 1))
 

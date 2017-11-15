@@ -9,7 +9,7 @@ geometry () {
 fg=$( xrdb -query | grep 'foreground' | sed 's/.*#/#/' )
 bg=$( xrdb -query | grep 'background' | sed 's/.*#/#/' )
 
-if outside; then 
-    cat "$HOME/.config/backflip/rcm.items" | xargs -d '\n' 9menu -popup -font "$FONT" -geometry $(geometry) -teleport -fg $fg -bg $bg
+if outside; then
+    cat "$HOME/.config/backflip/rcm.items" | xargs -d '\n' 9menu -popup -font "$FONT" -geometry $(geometry) -teleport -fg "$fg" -bg "$bg"
 fi
 

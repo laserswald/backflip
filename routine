@@ -1,23 +1,24 @@
 #!/bin/sh
 # Routine: what does something do when it gets opened?
 
-# Default operation: center it on the mouse pointer. 
-class=$(wclass -c $1)
+WID=$1
 
-function default() {
-    #move to he 
+# Default operation: center it on the mouse pointer.
+class=$(wclass -c "$1")
+
+default() {
+    #move to the mouse pointer.
     wmv -a $(wmp) "$1"
-    chwb -s 1 -c $(tcolor "color8" | sed 's/#/0x/') $1
+    chwb -s 1 -c "$(tcolor "color8" | sed 's/#/0x/')" "$1"
 }
 
-if ! wattr o $1 ; then
+if ! wattr o $WID ; then
     case $class in
-        weechat) groups -s $1 2; default $1 ;;
-        ncmpcpp) groups -s $1 5; default $1 ;;
-        mutt) groups -s $1 5; default $1 ;;
-        Telegram) groups -s $1 2; default $1 ;;
+        weechat|Telegram) groups -s $1 2; default $1 ;;
+        ncmpcpp|mutt) notify-send "Moving to chat"; groups -s $1 5; default $1 ;;
         dmenu) ;;
         9menu) ;;
+        dunst) ;;
         * ) default $1 ;;
     esac
 fi

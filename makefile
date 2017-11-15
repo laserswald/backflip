@@ -1,6 +1,6 @@
 CFLAGS=-g -Wall -pedantic
 
-BINS=rcoll 
+BINS=rcoll
 SCRIPTS=backflip center closest dattr focus fsd groupmgr ind infob lsd pulseb rainb routine shoutout snap switch_grid tile wclass rcm outside
 
 TOOLS=$(BINS) $(SCRIPTS)
@@ -11,9 +11,9 @@ rcoll: rcoll.c
 installtools: $(ATOOLS)
 	ln -s $^ ~/bin
 
-installconfig: 
-	mkdir -p ~/.config/backflip
-	cp -r ./config ~/.config/backflip
+installconfig:
+	mkdir -p ~/.config/backflip/
+	cp -r ./config/* ~/.config/backflip/
 
 install: installtools installconfig
 
